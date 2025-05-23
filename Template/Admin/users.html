@@ -1,0 +1,70 @@
+{% extends 'Admin/adminHome.html' %}
+{% load static %}
+{% block header %}
+<section class="banner-bottom py-lg-5 py-md-5 py-3">
+    <div class="container">
+        <div class="inner-sec py-lg-5 py-3">
+           
+            <h3 class="tittle text-center mb-md-5 mb-4">Users</h3>
+            <div class="contact_grid_right">
+                <!-- <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search..."> -->
+                    <table border="1">
+                      <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contact_number</th>
+                            <th scope="col">Aadhaar Number</th>
+                            <!-- <th scope="col">Action</th> -->
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for d in qy %}
+                          <tr>
+                            <th scope="row">{{d.name}}</th>
+                            <td>{{d.address}}</td>
+                            <td>{{d.email}}</td>
+                            <td>{{d.phone}}</td>
+                            <td>{{d.aadhaar_no}}</td>
+                            
+                          </tr>
+                          {% endfor %}
+                          
+                        </tbody>
+                      </table>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+  
+    th,
+    td {
+        text-align: center;
+        padding: 8px;
+    }
+  
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+  </style>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              // Handle search input
+              $("#searchInput").on("keyup", function () {
+                  var value = $(this).val().toLowerCase();
+                  $("#tableBody tr").filter(function () {
+                      var rowText = $(this).text().toLowerCase();
+                      $(this).toggle(rowText.indexOf(value) > -1);
+                  });
+              });
+          });
+      </script>
+{% endblock %}

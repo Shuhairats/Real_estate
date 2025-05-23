@@ -1,0 +1,80 @@
+<!-- templates/User/userHome.html -->
+{% extends 'User/userHome.html' %}
+{% load static %}
+
+{% block header %}
+
+<section class="banner-bottom py-lg-5 py-md-5 py-3">
+    <div class="container">
+        <div class="inner-sec py-lg-5 py-3">
+            <h3 class="tittle text-center mb-md-5 mb-4">House Price Prediction</h3>
+            <div id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="login px-4 mx-auto mw-100">
+                                <h5 class="text-center mb-4">Prediction</h5>
+            <form method="post" action="/houseprice_predict/">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="location">Select location:</label>
+                    <select name="location">
+                        {% for location in locations %}
+                        <option value="{{ location }}">{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bhk">Select BHK:</label>
+                    <select name="bhk">
+                        {% for bhk_option in bhk_opt %}
+                        <option value="{{ bhk_option }}">{{ bhk_option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bath">Select number of bathrooms:</label>
+                    <select name="bath">
+                        {% for bath_option in bath_opt %}
+                        <option value="{{ bath_option }}">{{ bath_option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sqft">Enter Square Foot between 300 - 14000:</label>
+                    <input type="number" name="sqft" min="300" max="14000" step="1" value="3000">
+                </div>
+
+                <button type="submit"  class="btn btn-primary submit mb-4">Predict</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+            {% if prediction is not None %}
+            <p>The predicted price of the house is ₹{{ prediction }} 💸</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle search input
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#tableBody tr").filter(function () {
+                var rowText = $(this).text().toLowerCase();
+                $(this).toggle(rowText.indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+{% endblock %}

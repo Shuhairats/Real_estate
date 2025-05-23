@@ -1,0 +1,30 @@
+{% extends 'User/userHome.html' %}
+{% load static %}
+{% block header %}
+<section class="banner-bottom py-lg-5 py-md-5 py-3" id="about">
+    <div class="container">
+    <h3 class="tittle text-center mb-md-5 mb-4">Land Area</h3>
+        <div class="inner-sec py-lg-5 py-3">
+            <div class="row">
+                <div class="col-lg-6 about-img">
+                    <img class="img-fluid" src="../static/media/{{qy.image}}" alt="">
+                </div>
+                <div class="col-lg-6 about-right mt-lg-4">
+                    <h5 class="tittle text-uppercase">{{qy.location}}</h5>
+                    <p class="my-4">{{qy.description}}</p>
+                    <p class="my-4">SquareFeet:{{qy.sqft}}</p>
+                    <p class="my-4">Price:{{qy.price}}</p>
+                    <p class="my-4"><strong>Owner Details</strong></p>
+                    <p class="my-4">Name: {{qy.owner.name}}<br>Address: {{qy.owner.address}}<br>email: {{qy.owner.email}}<br>For Contact: {{qy.owner.phone}}</p>
+                    <p class="my-4" style="color: blueviolet;">{{qy.status}}</p>
+                    {% if qy.status == 'Available' %}
+                    <a href="/bookland?id={{qy.id}}" class="btn btn-warning" style="margin-right: 30px;">BOOK</a>
+                    {% endif %}
+                </div>
+                
+            </div>
+            
+          </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'Admin/adminHome.html' %}
+{% load static %}
+{% block header %}
+<section class="banner-bottom py-lg-5 py-md-5 py-3" id="feature">
+    <div class="container">
+        <div class="inner-sec py-lg-5 py-3">
+            <h3 class="tittle text-center">Land Areas</h3>
+            <!-- <form method="get" action="/viewland_user">
+                
+                <input type="text" name="search" placeholder="Search..." style="width: 90%; margin-top: 40px;padding: 7px;">
+                <button type="submit" style="padding: 7px;background-color: orange;color: white;">Search</button>
+            
+            </form> -->
+            <div class="row mt-lg-5 mt-md-4 mt-4">
+                <!-- <div class="col-lg-4 about-in text-center"> -->
+                    {% for d in qy %}
+                    <div class="col-md-4 about-in text-center">
+                        <div class="card mb-4">
+                        <div class="card-body">
+                            <img src="../static/media/{{d.image}}" width="250px" height="150px">
+                            <h5 class="card-title">{{d.sqft}}plot,{{d.location}}</h5>
+                            <p class="card-text">{{d.description}}</p>
+                            <p class="card-text" style="color: green;font-size: 20px;">{{d.status}}</p>
+                            <a href="\viewdetails_admin?id={{d.id}}">View More</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

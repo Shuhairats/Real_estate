@@ -1,0 +1,91 @@
+{% extends 'Owner/ownerHome.html' %}
+{% load static %}
+{% block header %}
+<section class="banner-bottom py-lg-5 py-md-5 py-3">
+    <div class="container">
+        <div class="inner-sec py-lg-5 py-3">
+           
+            <h3 class="tittle text-center mb-md-5 mb-4">Booking Details</h3>
+            <div class="contact_grid_right">
+                <!-- <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search..."> -->
+                    <table border="1">
+                      <thead>
+                          <tr>
+                            <th scope="col">Land Image</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Advance</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for d in qy %}
+                          <tr>
+                            <th><img src="../static/media/{{d.land.image}}"></th>
+                            <td>{{d.land.location}}<br>{{d.land.description}}<br>{{d.land.sqft}}</td>
+                            <td>{{d.user.name}}<br>Ph: {{d.user.phone}}</td>
+                            <td>{{d.date}}</td>
+                            <td>{{d.price}}</td>
+                            <td>{{d.advance}}</td>
+                            {% if d.status == 'Booked' %}
+                            <td>
+                                <a type="button" class="btn btn-success" href="\approvebooking?id={{d.id}}" style="margin-bottom: 10px;">Approve</a>
+                                <a type="button" class="btn btn-danger" href="\rejectbooking?id={{d.id}}">Reject</a>
+                            </td>
+                            {% else %}
+                            <td>
+                                {{d.status}}
+                            </td>
+                            {% endif %}
+
+                          </tr>
+                          {% endfor %}
+                          
+                        </tbody>
+                      </table>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+  
+    th,
+    td {
+        text-align: center;
+        padding: 8px;
+    }
+  
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    #img {
+        width: 40px;
+        height: 40px;
+    }
+  </style>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              // Handle search input
+              $("#searchInput").on("keyup", function () {
+                  var value = $(this).val().toLowerCase();
+                  $("#tableBody tr").filter(function () {
+                      var rowText = $(this).text().toLowerCase();
+                      $(this).toggle(rowText.indexOf(value) > -1);
+                  });
+              });
+          });
+      </script>
+{% endblock %}
